@@ -30,7 +30,7 @@ var eventConsumer = new TotoEventConsumer('react-training-nsex', 'trainingSessio
   }, (validationError) => {
     // Failure
     // Print the validation problem
-    logger.compute(correlationId, "Failure procesing the trainingSessionsCreated event: "' + validationError.message + '", "error");
+    logger.compute(correlationId, "Failure procesing the trainingSessionsCreated event: " + validationError.message + ", "error");
 
     // TODO: do something about it!
   })

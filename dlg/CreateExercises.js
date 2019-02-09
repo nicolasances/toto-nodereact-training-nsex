@@ -14,7 +14,7 @@ exports.do = function(correlationId, data) {
     // Treat each workout separately
     for (var i = 0; i < workouts.length; i++) {
 
-      logger.compute(correlationId, 'Creating exercises for workout ' + JSON.stringify(workouts[i]));
+      logger.compute(correlationId, 'Creating exercises for workout ' + JSON.stringify(workouts[i]), "info");
 
       promises.push(createExercisesForWorkout.do(correlationId, data.sessionId, workouts[i]));
 
