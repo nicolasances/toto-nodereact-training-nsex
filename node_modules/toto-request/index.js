@@ -32,7 +32,7 @@ module.exports = function(req) {
     }
 
     // In case there's a body
-    if (req.body != null) httpReq.body = JSON.stringify(body);
+    if (req.body != null) httpReq.body = JSON.stringify(req.body);
 
     // Logging
     logger.apiOut(req.correlationId, req.microservice, method, res);
