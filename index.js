@@ -16,7 +16,7 @@ var eventConsumer = new TotoEventConsumer('react-training-nsex', 'trainingSessio
   let correlationId = event.correlationId;
 
   // Validate the message
-  validator.do().then(() => {
+  validator.do(event).then(() => {
 
     // Success
     logger.compute(correlationId, "Captured event trainingSessionsCreated", "info");
