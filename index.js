@@ -10,13 +10,10 @@ var logger = require('toto-logger');
  * - if there has been a session with that same workout, copy the workout exercises from that session to this session
  * - otherwise, copy the workout exercises from the plan into this session
  */
-var eventConsumer = new TotoEventConsumer('react-training-nsex', 'trainingSessionsCreated', (message) => {
-
-  // Extract the data from the message
-  let eventData = JSON.parse(message.value);
+var eventConsumer = new TotoEventConsumer('react-training-nsex', 'trainingSessionsCreated', (event) => {
 
   // Extract the correlationId
-  let correlationId = eventData.correlationId;
+  let correlationId = event.correlationId;
 
   // Validate the message
   validator.do().then(() => {
@@ -25,7 +22,7 @@ var eventConsumer = new TotoEventConsumer('react-training-nsex', 'trainingSessio
     logger.compute(correlationId, "Captured event trainingSessionsCreated", "info");
 
     // Execute the right delegate
-    createExercises.do(correlationId, eventData);
+    createExercises.do(correlationId, event);
 
   }, (validationError) => {
     // Failure
