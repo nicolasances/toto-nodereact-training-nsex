@@ -1,5 +1,6 @@
 
-var createExercisesForWorkout = require('./CreateExercisesForWorkout')
+var createExercisesForWorkout = require('./CreateExercisesForWorkout');
+var logger = require('toto-logger');
 
 exports.do = function(correlationId, data) {
 
@@ -13,7 +14,7 @@ exports.do = function(correlationId, data) {
     // Treat each workout separately
     for (var i = 0; i < workouts.length; i++) {
 
-      console.log('[' + correlationId + '] - Creating exercises for workout ' + JSON.stringify(workouts[i]));
+      logger.compute(correlationId, 'Creating exercises for workout ' + JSON.stringify(workouts[i]));
 
       promises.push(createExercisesForWorkout.do(correlationId, data.sessionId, workouts[i]));
 

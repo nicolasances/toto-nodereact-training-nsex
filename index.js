@@ -1,10 +1,8 @@
-var express = require('express');
 var Controller = require('toto-api-controller');
 var TotoEventConsumer = require('toto-event-consumer');
 var createExercises = require('./dlg/CreateExercises');
 var validator = require('./validation/Validator');
-
-var app = express;
+var logger = require('toto-logger');
 
 /**
  * Consumes events of training sessions created and when received, it will start
@@ -24,7 +22,7 @@ var eventConsumer = new TotoEventConsumer('react-training-nsex', 'trainingSessio
   validator.do().then(() => {
 
     // Success
-    console.log('[' + correlationId + '] - Captured event trainingSessionsCreated!');
+    logger.compute(correlationId, "Captured event trainingSessionsCreated", "info");
 
     // Execute the right delegate
     createExercises.do(correlationId, eventData);
@@ -32,18 +30,13 @@ var eventConsumer = new TotoEventConsumer('react-training-nsex', 'trainingSessio
   }, (validationError) => {
     // Failure
     // Print the validation problem
-    console.log('[' + correlationId + '] - Failure procesing the trainingSessionsCreated event: "' + validationError.message + '");
+    logger.compute(correlationId, "Failure procesing the trainingSessionsCreated event: "' + validationError.message + '", "error");
 
     // TODO: do something about it!
   })
 
 });
 
-var api = new Controller('react-training-nsex', app, null, eventConsumer);
+var api = new Controller('react-training-nsex', null, eventConsumer);
 
-/***********
- * START
- **********/
-app.listen(8080, function() {
-  console.log('React Training Nsex Microservice up and running');
-});
+api.listen();
