@@ -22,7 +22,16 @@ var eventConsumer = new TotoEventConsumer('react-training-nsex', 'trainingSessio
     logger.compute(correlationId, "Captured event trainingSessionsCreated", "info");
 
     // Execute the right delegate
-    createExercises.do(correlationId, event);
+    createExercises.do(correlationId, event).then(() => {
+
+      logger.compute(correlationId, 'Successfully created the Exercises! Job done!', 'info');
+
+    }, (err) => {
+
+      logger.compute(correlationId, 'There was an error :( ' + err, 'error');
+      console.log(err);
+
+    });
 
   }, (validationError) => {
     // Failure

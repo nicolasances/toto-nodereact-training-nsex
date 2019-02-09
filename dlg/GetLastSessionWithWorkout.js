@@ -10,34 +10,45 @@ exports.do = (correlationId, workout) => {
 
   return new Promise((success, failure) => {
 
-    let wid = workout.workoutId;
+    try {
 
-    // Get the last session with that workout Id
-    let call = {
-      correlationId: correlationId,
-      microservice: 'toto-nodems-training-session',
-      method: 'GET',
-      resource: 'sessions?wid=' + wid + '&sort=date&sortDir=desc&maxResults=1'
-    };
+      let wid = workout.workoutId;
 
-    // Call the API
-    http(call).then((apiResp) => {
+      // Get the last session with that workout Id
+      let call = {
+        correlationId: correlationId,
+        microservice: 'toto-nodems-training-session',
+        method: 'GET',
+        resource: 'sessions?wid=' + wid + '&sort=date&sortDir=desc&maxResults=1'
+      };
 
-      try {
+      // Call the API
+      http(call).then((apiResp) => {
 
-        // If there is no session for that workout
-        if (apiResp.sessions == null || apiResp.sessions.length == 0) {success({});}
-        // Return the first session (only one)
-        else success(apiResp.sessions[0]);
+        try {
 
-      } catch (e) {
+          // If there is no session for that workout
+          if (apiResp.sessions == null || apiResp.sessions.length == 0) {success({});}
+          // Return the first session (only one)
+          else success(apiResp.sessions[0]);
 
-        // Failure
-        failure({code: 500, message: e})
+        } catch (e) {
 
-      }
+          // Failure
+          failure({code: 500, message: e})
 
-    }, failure);
+        }
+
+      }, failure);
+
+    } catch (e) {
+
+      console.log(e);
+
+      // Failure
+      failure({code: 500, message: e})
+
+    } 
 
   });
 
