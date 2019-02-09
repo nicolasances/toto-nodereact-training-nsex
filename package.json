@@ -13,6 +13,6 @@
     "toto-api-controller": "^3.0.1",
     "toto-event-consumer": "^3.0.0",
     "toto-logger": "^3.0.0",
-    "toto-request": "^2.0.0"
+    "toto-request": "^2.0.1"
   }
 }
