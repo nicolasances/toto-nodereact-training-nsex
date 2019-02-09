@@ -18,7 +18,7 @@ module.exports = function(req) {
     let method = (req.method != null) ? req.method : 'GET';
 
     // Append '/' in front of the resource, in case it's missing
-    let res = resource.indexOf('/') == 0 ? resource : ('/' + resource);
+    let res = req.resource.indexOf('/') == 0 ? req.resource : ('/' + resource);
 
     // Define the request parameters
     let httpReq = {
