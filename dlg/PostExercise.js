@@ -1,4 +1,4 @@
-var http = require('request');
+var http = require('toto-request');
 
 exports.do = (sessionId, exercise) => {
 
@@ -15,37 +15,15 @@ exports.do = (sessionId, exercise) => {
 
     // Request
     let request = {
-      url: 'http://toto-nodems-training-session:8080/sessions/' + sessionId + '/exercises',
+      correlationId: correlationId,
+      microservice: 'toto-nodems-training-session',
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-correlation-id': correlationId
-      },
-      body: JSON.stringify(body);
+      resource: 'sessions/' + sessionId + '/exercises',
+      body: body
     };
 
     // Call
-    http(request, (err, resp, body) => {
-
-      // Check for problems
-      if (err != null) {failure({code: 500, message: err}); return;}
-
-      try {
-
-        // Get the id of the created exercise
-        let createdId = JSON.parse(body).id;
-
-        // Success
-        success({id: createdId});
-
-      } catch (e) {
-
-        // Fail
-        failure({code: 500, message: e});
-
-      }
-
-    });
+    http(request).then(success, failure);
 
   });
 }

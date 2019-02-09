@@ -1,11 +1,11 @@
 var postExercise = require('./PostExercise');
 
-export.do = (correlationId, sessionId, exercises) => {
+exports.do = (correlationId, sessionId, exercises) => {
 
   return new Promise((success, failure) => {
 
     // Array of promises, so I can wait for the completion of all of them
-    Promises promises = [];
+    var promises = [];
 
     // For each exercise, POST it
     for (var i = 0; i < exercises.length; i++) {

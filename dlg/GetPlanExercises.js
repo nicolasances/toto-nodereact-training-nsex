@@ -1,4 +1,4 @@
-var http = require('request');
+var http = require('toto-request');
 
 exports.do = (correlationId, planId, workoutId) => {
 
@@ -6,31 +6,14 @@ exports.do = (correlationId, planId, workoutId) => {
 
     // Request
     let request = {
-      url: 'http://toto-nodems-training-plan:8080/plans/' + planId + '/workouts/' + workoutId + '/exercises',
+      correlationId: correlationId,
+      microservice: 'toto-nodems-training-plan',
       method: 'GET',
-      headers: {
-        'x-correlation-id': correlationId
-      }
+      resource: 'plans/' + planId + '/workouts/' + workoutId + '/exercises'
     };
 
     // Call
-    http(request, (err, resp, body) => {
-
-      if (err != null) {failure({code: 500, message: err}); return;}
-      if (body == null) {failure({code: 404, message: 'No body returned for plan ' + planId}); return;}
-
-      try {
-        // Parse the body
-        let b = JSON.parse(body);
-
-        // Success
-        success(b);
-
-      } catch (e) {
-
-        failure({code: 500, message: e});
-      }
-
-    })
+    http(request).then(success, failure);
+    
   })
 }

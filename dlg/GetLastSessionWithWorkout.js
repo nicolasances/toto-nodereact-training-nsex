@@ -1,10 +1,11 @@
-var http = require('request');
+var http = require('toto-request');
 
 /**
  * Workout: {
  *  workoutId: id of the workout,
  *  planId: id of the plan
  * }
+ */
 exports.do = (correlationId, workout) => {
 
   return new Promise((success, failure) => {
@@ -13,24 +14,16 @@ exports.do = (correlationId, workout) => {
 
     // Get the last session with that workout Id
     let call = {
-      url: 'http://toto-nodems-training-session:8080/sessions?wid=' + wid + '&sort=date&sortDir=desc&maxResults=1',
+      correlationId: correlationId,
+      microservice: 'toto-nodems-training-session',
       method: 'GET',
-      headers: {
-        'x-correlation-id': correlationId
-      }
+      resource: 'sessions?wid=' + wid + '&sort=date&sortDir=desc&maxResults=1'
     };
 
     // Call the API
-    http(call, (err, resp, body) => {
-
-      // Check for problems
-      if (err != null) {failure({code: 500, message: err}); return;}
-      if (body == null) {failure({code: 404, message: 'No body returned for workout ' + wid}); return;}
+    http(call).then((apiResp) => {
 
       try {
-
-        // Parse the body
-        let apiResp = JSON.parse(body);
 
         // If there is no session for that workout
         if (apiResp.sessions == null || apiResp.sessions.length == 0) {success({});}
@@ -44,7 +37,7 @@ exports.do = (correlationId, workout) => {
 
       }
 
-    });
+    }, failure);
 
   });
 

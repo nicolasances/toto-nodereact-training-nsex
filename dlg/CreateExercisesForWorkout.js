@@ -11,7 +11,7 @@ exports.do = function(correlationId, sessionId, workout) {
   return new Promise((success, failure) => {
 
     // 1. Check if there has been a session using this workout already
-    getLastSessionWithWorkout.do(correlationId, workout).then((data) {
+    getLastSessionWithWorkout.do(correlationId, workout).then((data) => {
 
       logger.compute(correlationId, 'Last session for workout: ' + JSON.stringify(data), "info");
 
