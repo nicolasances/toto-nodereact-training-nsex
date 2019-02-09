@@ -1,6 +1,6 @@
 var http = require('toto-request');
 
-exports.do = (sessionId, exercise) => {
+exports.do = (correlationId, sessionId, exercise) => {
 
   return new Promise((success, failure) => {
 
