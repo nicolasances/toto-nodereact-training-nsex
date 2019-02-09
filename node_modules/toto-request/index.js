@@ -5,7 +5,7 @@ var validator = require('./validation/Validator');
 /**
  * This function makes an http call and returns a standard Promise
  */
-module.exports.http = function(req) {
+module.exports = function(req) {
 
   return new Promise((success, failure) => {
 
