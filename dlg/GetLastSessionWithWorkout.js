@@ -19,7 +19,7 @@ exports.do = (correlationId, workout) => {
         correlationId: correlationId,
         microservice: 'toto-nodems-training-session',
         method: 'GET',
-        resource: 'sessions?wid=' + wid + '&sort=date&sortDir=desc&maxResults=1'
+        resource: 'sessions?wid=' + wid + '&sort=date&sortDir=desc&maxResults=2'
       };
 
       // Call the API
@@ -28,9 +28,9 @@ exports.do = (correlationId, workout) => {
         try {
 
           // If there is no session for that workout
-          if (apiResp.sessions == null || apiResp.sessions.length == 0) {success({});}
+          if (apiResp.sessions == null || apiResp.sessions.length < 2) {success({});}
           // Return the first session (only one)
-          else success(apiResp.sessions[0]);
+          else success(apiResp.sessions[1]);
 
         } catch (e) {
 
@@ -48,7 +48,7 @@ exports.do = (correlationId, workout) => {
       // Failure
       failure({code: 500, message: e})
 
-    } 
+    }
 
   });
 
