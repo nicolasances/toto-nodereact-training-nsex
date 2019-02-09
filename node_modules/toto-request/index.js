@@ -18,11 +18,11 @@ module.exports = function(req) {
     let method = (req.method != null) ? req.method : 'GET';
 
     // Append '/' in front of the resource, in case it's missing
-    let res = req.resource.indexOf('/') == 0 ? req.resource : ('/' + resource);
+    let res = req.resource.indexOf('/') == 0 ? req.resource : ('/' + req.resource);
 
     // Define the request parameters
     let httpReq = {
-      url: 'http://' + req.microservice + ':8080' + req.resource,
+      url: 'http://' + req.microservice + ':8080' + res,
       method: method,
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ module.exports = function(req) {
     if (req.body != null) httpReq.body = JSON.stringify(body);
 
     // Logging
-    logger.apiOut(req.correlationId, req.microservice, method, req.resource);
+    logger.apiOut(req.correlationId, req.microservice, method, res);
 
     // Calling
     httpRequest(httpReq, (err, resp, body) => {
