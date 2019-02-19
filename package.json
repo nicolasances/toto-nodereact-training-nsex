@@ -10,9 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
-    "toto-api-controller": "^3.0.1",
-    "toto-event-consumer": "^3.0.0",
-    "toto-logger": "^3.0.0",
-    "toto-request": "^2.0.1"
+    "toto-api-controller": "^4.0.0",
+    "toto-event-consumer": "^4.0.0",
+    "toto-logger": "^4.0.0",
+    "toto-request": "^4.0.0"
   }
 }
