@@ -10,7 +10,7 @@ exports.do = (correlationId, sessionId, exercises) => {
     // For each exercise, POST it
     for (var i = 0; i < exercises.length; i++) {
 
-      promises.push(postExercise.do(correlationId, sessionId, exercises[i]));
+      promises.push(postExercise.do(correlationId, sessionId, exercises[i], i));
 
     }
 

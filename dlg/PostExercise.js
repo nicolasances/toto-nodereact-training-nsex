@@ -1,11 +1,14 @@
 var http = require('toto-request');
 
-exports.do = (correlationId, sessionId, exercise) => {
+exports.do = (correlationId, sessionId, exercise, executionOrder) => {
 
   return new Promise((success, failure) => {
 
     // Define the body of the POST request
     let body = exercise;
+
+    // Add the execution order of this exercise
+    body.order = executionOrder;
 
     // Change the session id (to the newly created session)
     body.sessionId = sessionId;
