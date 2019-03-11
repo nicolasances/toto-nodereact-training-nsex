@@ -3,6 +3,7 @@ var TotoEventConsumer = require('toto-event-consumer');
 var createExercises = require('./dlg/CreateExercises');
 var validator = require('./validation/Validator');
 var logger = require('toto-logger');
+var deleteSessionHandler = require('./dlg/handlers/DeleteSessionHandler');
 
 /**
  * Consumes events of training sessions created and when received, it will start
@@ -42,6 +43,11 @@ var eventConsumer = new TotoEventConsumer('react-training-nsex', 'trainingSessio
   })
 
 });
+
+/**
+ * Consumes the session deleted event and deletes the session's exercises
+ */
+var eventConsumer = new TotoEventConsumer('react-training-nsex', 'trainingSessionsDeleted', deleteSessionHandler.do);
 
 var api = new Controller('react-training-nsex', null, eventConsumer);
 
