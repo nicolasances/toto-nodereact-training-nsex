@@ -14,6 +14,6 @@ exports.do = (correlationId, planId, workoutId) => {
 
     // Call
     http(request).then(success, failure);
-    
+
   })
 }
