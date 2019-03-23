@@ -40,7 +40,7 @@ exports.do = function(correlationId, sessionId, workout) {
         let planId = workout.planId;
 
         // 2.b.1. Get the exercises from the plan
-        getPlanExercises.do(correlationId, planId, workout.id).then((planWorkoutExercises) => {
+        getPlanExercises.do(correlationId, planId, workout.workoutId).then((planWorkoutExercises) => {
 
           // 2.b.2. Post these exercises
           postExercises.do(correlationId, sessionId, planWorkoutExercises.exercises).then(success, failure);
